@@ -46,6 +46,18 @@ public:
     void removeValue(T value);
     // Imprime todos os elementos da lista recursivamente. 
     void print();
+    //Adiciona todos os elementos da lista passada por referência à lista atual
+    void addElements(const LinkedList<T>& otherList):
+    //Remove todos os elementos da lista passada por referência da lista atual
+    void removeElements(const LinkedList<T>& removeList);
+    //Retorna uma cópia da lista passada por referência
+    LinkedList(const LinkedList<T>& otherlist);
+    //Sobrecarrega o operador +
+    LinkedList operator+(const LinkedList<T>& list1, const LinkedList<T>& list2);
+    //Sobrecarga do operador >>
+    LinkedList operator>>(const T* data, LinkedList<T>& list1);
+    //Sobrecarga do operador <<
+    LinkedList operator<<(const T* data, LinkedList<T>& list);
 };
 
 /**
@@ -236,5 +248,73 @@ void printAux(Node<T> *curr){
         printAux(curr->getNext());
     }
 }
+
+ 
+template <typename T>
+void LinkedList<T>::addElements(const LinkedList<T>& otherList) {
+    Node<T>* currentNode = otherList.head;
+
+    while (currentNode != nullptr) {
+        add(currentNode->data);
+        currentNode = currentNode->next;
+    }
+}
+
+
+template <typename T>
+void LinkedList<T>::removeElements(const LinkedList<T>& removeList) {
+    Node<T>* currentNode = removeList.head;
+
+    while (currentNode != nullptr) {
+        removeValue(currentNode->data);
+        currentNode = currentNode->next;
+    }
+}
+
+
+template <typename T>
+LinkedList<T>::LinkedList(const LinkedList<T>& otherList) {
+    head = nullptr;
+    tail = nullptr;
+
+    Node<T>* currentNode = otherList.head;
+
+    while (currentNode != nullptr) {
+        add(currentNode->data);
+        currentNode = currentNode->next;
+    }
+}
+
+
+template <typename T>
+LinkedList<T> operator+(const LinkedList<T>& list1, const LinkedList<T>& list2) {
+    LinkedList<T> result = list1;
+
+    result.addElements(list2);
+
+    return result;
+}
+
+
+template <typename T>
+LinkedList<T>& operator>>(const T* data, LinkedList<T>& list) {
+    if (data == nullptr) {
+        return list;
+    }
+
+    list.add(*data);
+    return list;
+}
+
+
+template <typename T>
+LinkedList<T>& operator<<(LinkedList<T>& list, const T* data) {
+    if (data != nullptr) {
+        list.add(*data);
+    }
+
+    return list;
+}
+
 
 #endif
