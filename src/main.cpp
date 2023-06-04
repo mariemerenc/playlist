@@ -5,11 +5,13 @@
 
 #include <iostream>
 #include <string>
+#include <sstream>
 #include "Node.hpp"
 #include "LinkedList.hpp"
 #include "Song.hpp"
 #include "Playlist.hpp"
 #include "menu.hpp"
+
 
 /**
  * @brief Setup inicial do programa, que adiciona exemplos de
@@ -84,3 +86,5 @@ int main(){
 
     return 0;
 }
+
+

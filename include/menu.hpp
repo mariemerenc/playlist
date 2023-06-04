@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <string>
+#include <sstream>
 #include "Node.hpp"
 #include "LinkedList.hpp"
 #include "Song.hpp"
@@ -20,4 +21,7 @@ void songPlaylistMenu(LinkedList<Song> &songs, LinkedList<Playlist> &playlists);
 // Menu de tocar músicas.
 void playSongs(LinkedList<Playlist> &playlists);
 // Menu principal.
+
+void otherMethods(LinkedList<Song> &songs, LinkedList<Playlist> &playlists);
+
 int mainMenu(LinkedList<Song> &songs, LinkedList<Playlist> &playlists);

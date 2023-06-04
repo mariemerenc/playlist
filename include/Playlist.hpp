@@ -24,6 +24,8 @@ private:
 public:
     // Construtor padrão da playlist. 
     Playlist();
+    //Construtor cópia da playlist.
+    Playlist(Playlist *playlist);
     // Construtor da playlist que recebe seu nome. 
     Playlist(std::string name);
     // Destrutor da playlist, que remove todas as músicas. 
@@ -43,9 +45,41 @@ public:
     // Imprime as músicas da playlist. 
     void printSongs();
     // Sobrecarga de operador de igualdade. 
-    bool operator==(Playlist &b);
     // Sobrecarga de operador de inserção da playlist. 
     friend std::ostream& operator<<(std::ostream& os, const Playlist& playlist);
+    //
+    void addSong(Playlist &playlist);
+    //
+    void removeSong(Playlist &playlist);
+    //
+    Playlist operator+(Playlist &b);
+    //
+    Playlist operator+(Song &song);
+    //
+    Playlist operator-(Playlist &b);
+    //
+    Playlist operator-(Song &song);
+    //
+    void operator>>(Song &song);
+    //
+    void operator<<(Song &song);
+    //
+    template <typename T>
+    bool operator!=(T &b) {return !(*this == b);}
+    
+    bool operator==(Playlist &b);
+    //
+    template <typename T>
+    void operator=(T b){
+        this->name = b.getName();
+        this->songs = b.getSongs();}
+
 };
 
 #endif
+
+
+
+
+
+

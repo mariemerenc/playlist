@@ -1,0 +1,3 @@
+/home/mariemerenc/Downloads/playlist-main/build/CMakeFiles/program.dir
+/home/mariemerenc/Downloads/playlist-main/build/CMakeFiles/edit_cache.dir
+/home/mariemerenc/Downloads/playlist-main/build/CMakeFiles/rebuild_cache.dir

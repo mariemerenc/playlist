@@ -33,8 +33,12 @@ public:
     void setAuthor(std::string author);
     //Sobrecarga do operador de igualdade.
     bool operator==(Song &b);
+
+    bool operator!=(Song &b) {return (title != b.getTitle() || author != b.getAuthor());}
     //Sobrecarga do operador de inserção.
     friend std::ostream& operator<<(std::ostream& os, const Song& song);
+    template <typename T>
+    void operator=(T b);
 };
 
 #endif

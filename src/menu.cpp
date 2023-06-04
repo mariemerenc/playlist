@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <string>
+#include <sstream>
 #include "Node.hpp"
 #include "LinkedList.hpp"
 #include "Song.hpp"
@@ -16,6 +17,153 @@
  * 
  * @param playlists Lista encadeada (LinkedList) de playlists (Playlist) do sistema.
  */
+
+void otherMethods(LinkedList<Song> &songs, LinkedList<Playlist> &playlists){
+    std::cout << "======================\n";
+    std::cout << "Outras opções\n";
+    std::cout << "1. Adicionar músicas de uma playlist à outra\n";
+    std::cout << "2. Remover músicas de uma playlist em outra\n";
+    std::cout << "3. Criar uma nova playlist que mescla outras duas\n";
+    std::cout << "4. Criar uma nova playlist que é a diferença entre duas outras\n";
+    std::cout << "0. Voltar\n";
+
+    int choice;
+    std::cout << "\nDigite sua escolha: ";
+    std::cin >> choice;
+    std::cin.ignore();
+    std::string line;
+
+    switch(choice){
+        case 1:
+            std::cout << "Digite o nome da playlist que deseja adicionar músicas, ou deixe em branco para cancelar:\n";
+            std::getline(std::cin, line);
+            if(line != ""){
+                auto pl1ptr = playlists.searchValue(Playlist(line));
+                if(pl1ptr == nullptr){
+                    std::cout << "Erro: A playlist \"" << line << "\" não existe.\n";
+                }
+                else{
+                    std::cout << "Digite o nome da playlist que deseja adicionar músicas, ou deixe em branco para cancelar:\n";
+                    std::getline(std::cin, line);
+                    if(line != ""){
+                        auto pl2ptr = playlists.searchValue(Playlist(line));
+                        if(pl2ptr == nullptr){
+                            std::cout << "Erro: A playlist \"" << line << "\" não existe.\n";
+                        }
+                        else{
+                            pl1ptr->addSong(*pl2ptr);
+                            std::cout << "Músicas adicionadas com sucesso.\n";
+                        }
+                    }
+                }
+            }
+            break;
+
+        case 2:
+            std::cout << "Digite o nome da playlist que deseja remover músicas, ou deixe em branco para cancelar:\n";
+            std::getline(std::cin, line);
+            if(line != ""){
+                auto pl1ptr = playlists.searchValue(Playlist(line));
+                if(pl1ptr == nullptr){
+                    std::cout << "Erro: A playlist \"" << line << "\" não existe.\n";
+                }
+                else{
+                    std::cout << "Digite o nome da playlist que deseja remover músicas, ou deixe em branco para cancelar:\n";
+                    std::getline(std::cin, line);
+                    if(line != ""){
+                        auto pl2ptr = playlists.searchValue(Playlist(line));
+                        if(pl2ptr == nullptr){
+                            std::cout << "Erro: A playlist \"" << line << "\" não existe.\n";
+                        }
+                        else{
+                            pl1ptr->removeSong(*pl2ptr);
+                            std::cout << "Músicas removidas com sucesso.\n";
+                        }
+                    }
+                }
+            }
+            break;
+
+        case 3:
+            std::cout << "Digite o nome da playlist que deseja criar, ou deixe em branco para cancelar:\n";
+            std::getline(std::cin, line);
+            if(line != ""){
+                auto pl1ptr = playlists.searchValue(Playlist(line));
+                if(pl1ptr != nullptr){
+                    std::cout << "Erro: A playlist \"" << line << "\" já existe.\n";
+                }
+                else{
+                    std::cout << "Digite o nome da playlist que deseja mesclar, ou deixe em branco para cancelar:\n";
+                    std::getline(std::cin, line);
+                    if(line != ""){
+                        auto pl2ptr = playlists.searchValue(Playlist(line));
+                        if(pl2ptr == nullptr){
+                            std::cout << "Erro: A playlist \"" << line << "\" não existe.\n";
+                        }
+                        else{
+                            std::cout << "Digite o nome da playlist que deseja mesclar, ou deixe em branco para cancelar:\n";
+                            std::getline(std::cin, line);
+                            if(line != ""){
+                                auto pl3ptr = playlists.searchValue(Playlist(line));
+                                if(pl3ptr == nullptr){
+                                    std::cout << "Erro: A playlist \"" << line << "\" não existe.\n";
+                                }
+                                else{
+                                     pl1ptr->addSong(*pl2ptr);
+                                    std::cout << "Playlist \"" << line << "\" criada com sucesso.\n";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            break;
+
+        case 4:
+            std::cout << "Digite o nome da playlist que deseja criar, ou deixe em branco para cancelar:\n";
+            std::getline(std::cin, line);
+            if(line != ""){
+                Playlist *pl1ptr = playlists.searchValue(Playlist(line));
+                if(pl1ptr != nullptr){
+                    std::cout << "Erro: A playlist \"" << line << "\" já existe.\n";
+                }
+                else{
+                    std::cout << "Digite o nome da playlist que deseja subtrair, ou deixe em branco para cancelar:\n";
+                    std::getline(std::cin, line);
+                    if(line != ""){
+                        Playlist *pl2ptr = playlists.searchValue(Playlist(line));
+                        if(pl2ptr == nullptr){
+                            std::cout << "Erro: A playlist \"" << line << "\" não existe.\n";
+                        }
+                        else{
+                            std::cout << "Digite o nome da playlist que deseja subtrair, ou deixe em branco para cancelar:\n";
+                            std::getline(std::cin, line);
+                            if(line != ""){
+                                auto pl3ptr = playlists.searchValue(Playlist(line));
+                                if(pl3ptr == nullptr){
+                                    std::cout << "Erro: A playlist \"" << line << "\" não existe.\n";
+                                }
+                                else{
+                                    pl1ptr->removeSong(*pl2ptr);
+                                    std::cout << "Playlist \"" << line << "\" criada com sucesso.\n";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            break;
+
+        case 0:
+            return;
+
+        default:
+            std::cout << "Erro: Opção inválida.\n";
+            break;    
+
+    }
+}
+
 void playlistMenu(LinkedList<Playlist> &playlists){
     int choice;
 
@@ -75,6 +223,7 @@ void playlistMenu(LinkedList<Playlist> &playlists){
                 std::cout << "Playlists:\n";
                 playlists.print();
             }
+
             break;
 
         case 0:
@@ -361,6 +510,7 @@ int mainMenu(LinkedList<Song> &songs, LinkedList<Playlist> &playlists){
     std::cout << "2. Gerenciar músicas\n";
     std::cout << "3. Gerenciar músicas em playlists\n";
     std::cout << "4. Tocar playlist\n";
+    std::cout << "5. Outras opções\n";
     std::cout << "0. Sair\n";
     std::cout << "Digite sua escolha: ";
 
@@ -383,6 +533,12 @@ int mainMenu(LinkedList<Song> &songs, LinkedList<Playlist> &playlists){
         case 4:
             playSongs(playlists);
             break;
+
+        case 5:
+            otherMethods(songs, playlists);
+            break;    
+
+
 
         case 0: 
             std::cout << "Programa encerrado.\n";

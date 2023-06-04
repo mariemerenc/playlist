@@ -25,6 +25,7 @@ private:
 public:
     // Construtor da lista encadeada. 
     LinkedList();
+    LinkedList(const LinkedList<T>& otherList);
     ~LinkedList();
     // Remove todos os elementos da lista. 
     void clear();
@@ -46,18 +47,27 @@ public:
     void removeValue(T value);
     // Imprime todos os elementos da lista recursivamente. 
     void print();
-    //Adiciona todos os elementos da lista passada por referência à lista atual
-    void addElements(const LinkedList<T>& otherList):
-    //Remove todos os elementos da lista passada por referência da lista atual
-    void removeElements(const LinkedList<T>& removeList);
-    //Retorna uma cópia da lista passada por referência
-    LinkedList(const LinkedList<T>& otherlist);
-    //Sobrecarrega o operador +
-    LinkedList operator+(const LinkedList<T>& list1, const LinkedList<T>& list2);
-    //Sobrecarga do operador >>
-    LinkedList operator>>(const T* data, LinkedList<T>& list1);
-    //Sobrecarga do operador <<
-    LinkedList operator<<(const T* data, LinkedList<T>& list);
+    //blablabla
+    void addList(LinkedList<T>& otherList);
+    //adlkfjs
+    void removeList(LinkedList<T>& otherList);
+    //abalbl
+    //template <typename T>
+    //LinkedList<T> LinkedList(const LinkedList<T>& otherList);
+    //afsjgpçlask
+    LinkedList<T> operator+(LinkedList<T>& otherList);
+    //slkdfgj
+    LinkedList<T> operator-(LinkedList<T>& otherList);
+    //
+    friend std::istream& operator>>(std::istream& is, LinkedList<T>& list);
+    //sçgfjspkad
+    friend std::ostream& operator<<(std::ostream& os, const LinkedList<T>& list);
+
+    bool operator!=(T &b);
+    
+    bool operator==(T &b);
+
+    void operator=(T &b);
 };
 
 /**
@@ -249,72 +259,96 @@ void printAux(Node<T> *curr){
     }
 }
 
- 
+// Adiciona todos os elementos da lista recebida à lista atual
 template <typename T>
-void LinkedList<T>::addElements(const LinkedList<T>& otherList) {
-    Node<T>* currentNode = otherList.head;
+void LinkedList<T>::addList(LinkedList<T>& otherList) {
+    Node<T>* curr = otherList.head;
 
-    while (currentNode != nullptr) {
-        add(currentNode->data);
-        currentNode = currentNode->next;
+    while (curr != nullptr) {
+        add(curr->getValue());
+        curr = curr->getNext();
     }
 }
 
-
+// Remove os elementos da lista recebida da lista atual
 template <typename T>
-void LinkedList<T>::removeElements(const LinkedList<T>& removeList) {
-    Node<T>* currentNode = removeList.head;
+void LinkedList<T>::removeList(LinkedList<T>& otherList) {
+    Node<T>* curr = otherList.head;
 
-    while (currentNode != nullptr) {
-        removeValue(currentNode->data);
-        currentNode = currentNode->next;
+    while (curr != nullptr) {
+        removeValue(curr->getValue());
+        curr = curr->getNext();
     }
 }
 
-
+// Construtor cópia que retorna uma cópia da lista recebida como parâmetro
 template <typename T>
 LinkedList<T>::LinkedList(const LinkedList<T>& otherList) {
     head = nullptr;
     tail = nullptr;
 
-    Node<T>* currentNode = otherList.head;
+    Node<T>* curr = otherList.head;
 
-    while (currentNode != nullptr) {
-        add(currentNode->data);
-        currentNode = currentNode->next;
+    while (curr != nullptr) {
+        add(curr->getValue());
+        curr = curr->getNext();
     }
 }
 
-
+// Sobrecarga do operador "+" para a concatenação de duas listas
 template <typename T>
-LinkedList<T> operator+(const LinkedList<T>& list1, const LinkedList<T>& list2) {
-    LinkedList<T> result = list1;
+LinkedList<T> LinkedList<T>::operator+(LinkedList<T>& otherList) {
+    LinkedList<T> result(*this);
 
-    result.addElements(list2);
+    Node<T>* curr = otherList.head;
+    while (curr != nullptr) {
+        result.add(curr->getValue());
+        curr = curr->getNext();
+    }
 
     return result;
 }
 
-
 template <typename T>
-LinkedList<T>& operator>>(const T* data, LinkedList<T>& list) {
-    if (data == nullptr) {
-        return list;
-    }
-
-    list.add(*data);
-    return list;
+std::istream& operator>>(std::istream& is, LinkedList<T>& list) {
+    T value;
+    is >> value;
+    list.add(value);
+    return is;
 }
 
-
+/**
+ * @brief Sobrecarga do operador de inserção "<<" para a classe LinkedList.
+ * 
+ * @tparam T Tipo do valor armazenado na lista.
+ * @param os O fluxo de saída.
+ * @param list A lista encadeada.
+ * @return O fluxo de saída.
+ */
 template <typename T>
-LinkedList<T>& operator<<(LinkedList<T>& list, const T* data) {
-    if (data != nullptr) {
-        list.add(*data);
+std::ostream& operator<<(std::ostream& os, const LinkedList<T>& list) {
+    Node<T>* curr = list.getHead();
+
+    while (curr != nullptr) {
+        os << curr->getValue() << " ";
+        curr = curr->getNext();
     }
 
-    return list;
+    return os;
 }
 
+template <typename T>
+LinkedList<T> LinkedList<T>::operator-(LinkedList<T>& otherList){
+    LinkedList<T> result(*this);
+
+    Node<T>* curr = otherList.head;
+    while (curr != nullptr) {
+        result.removeValue(curr->getValue());
+        curr = curr->getNext();
+    }
+
+    return result;
+
+}
 
 #endif
