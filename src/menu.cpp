@@ -12,13 +12,20 @@
 #include "Playlist.hpp"
 #include "menu.hpp"
 
+
+
 /**
- * @brief Menu de playlists, que permite adicionar, remover ou listar músicas no sistema.
- * 
+ * @brief Executa outras opções do menu.
+ *
+ * Essa função exibe um menu com diferentes opções e executa a ação selecionada pelo usuário.
+ * As opções incluem adicionar músicas de uma playlist a outra, remover músicas de uma playlist em outra,
+ * criar uma nova playlist que mescla outras duas e criar uma nova playlist que é a diferença entre duas outras.
+ *
+ * @param songs Lista encadeada (LinkedList) de músicas (Song) do sistema.
  * @param playlists Lista encadeada (LinkedList) de playlists (Playlist) do sistema.
  */
-
 void otherMethods(LinkedList<Song> &songs, LinkedList<Playlist> &playlists){
+     // Exibe o menu de opções
     std::cout << "======================\n";
     std::cout << "Outras opções\n";
     std::cout << "1. Adicionar músicas de uma playlist à outra\n";
@@ -35,6 +42,7 @@ void otherMethods(LinkedList<Song> &songs, LinkedList<Playlist> &playlists){
 
     switch(choice){
         case 1:
+        // Adicionar músicas de uma playlist à outra
             std::cout << "Digite o nome da playlist que deseja adicionar músicas, ou deixe em branco para cancelar:\n";
             std::getline(std::cin, line);
             if(line != ""){
@@ -60,6 +68,7 @@ void otherMethods(LinkedList<Song> &songs, LinkedList<Playlist> &playlists){
             break;
 
         case 2:
+        // Remover músicas de uma playlist em outra
             std::cout << "Digite o nome da playlist que deseja remover músicas, ou deixe em branco para cancelar:\n";
             std::getline(std::cin, line);
             if(line != ""){
@@ -85,6 +94,7 @@ void otherMethods(LinkedList<Song> &songs, LinkedList<Playlist> &playlists){
             break;
 
         case 3:
+        // Criar uma nova playlist que mescla outras duas
             std::cout << "Digite o nome da playlist que deseja criar, ou deixe em branco para cancelar:\n";
             std::getline(std::cin, line);
             if(line != ""){
@@ -120,6 +130,7 @@ void otherMethods(LinkedList<Song> &songs, LinkedList<Playlist> &playlists){
             break;
 
         case 4:
+        // Criar uma nova playlist que é a diferença entre duas outras
             std::cout << "Digite o nome da playlist que deseja criar, ou deixe em branco para cancelar:\n";
             std::getline(std::cin, line);
             if(line != ""){
@@ -155,6 +166,7 @@ void otherMethods(LinkedList<Song> &songs, LinkedList<Playlist> &playlists){
             break;
 
         case 0:
+        // Voltar ao menu principal
             return;
 
         default:
@@ -164,6 +176,11 @@ void otherMethods(LinkedList<Song> &songs, LinkedList<Playlist> &playlists){
     }
 }
 
+/**
+ * @brief Menu de playlists, que permite adicionar, remover ou listar músicas no sistema.
+ * 
+ * @param playlists Lista encadeada (LinkedList) de playlists (Playlist) do sistema.
+ */
 void playlistMenu(LinkedList<Playlist> &playlists){
     int choice;
 

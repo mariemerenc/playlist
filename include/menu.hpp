@@ -20,8 +20,7 @@ void songMenu(LinkedList<Song> &songs, LinkedList<Playlist> &playlists);
 void songPlaylistMenu(LinkedList<Song> &songs, LinkedList<Playlist> &playlists);
 // Menu de tocar músicas.
 void playSongs(LinkedList<Playlist> &playlists);
-// Menu principal.
-
+//Menu que apresenta novos métodos, acrescidos posteriormente.
 void otherMethods(LinkedList<Song> &songs, LinkedList<Playlist> &playlists);
-
+// Menu principal.
 int mainMenu(LinkedList<Song> &songs, LinkedList<Playlist> &playlists);

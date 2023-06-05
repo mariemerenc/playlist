@@ -47,26 +47,23 @@ public:
     void removeValue(T value);
     // Imprime todos os elementos da lista recursivamente. 
     void print();
-    //blablabla
+    //Adiciona os elementos de uma lista à lista atual.
     void addList(LinkedList<T>& otherList);
-    //adlkfjs
+    //Remove os elementos de uma lista na lista atual.
     void removeList(LinkedList<T>& otherList);
-    //abalbl
-    //template <typename T>
-    //LinkedList<T> LinkedList(const LinkedList<T>& otherList);
-    //afsjgpçlask
+    //Sobrecarga do operador de adição.
     LinkedList<T> operator+(LinkedList<T>& otherList);
-    //slkdfgj
+    //Sobrecarga do operador de subtração.
     LinkedList<T> operator-(LinkedList<T>& otherList);
-    //
+    //Sobrecarga do operador de extração.
     friend std::istream& operator>>(std::istream& is, LinkedList<T>& list);
-    //sçgfjspkad
+    //Sobrecarga do operador de inserção.
     friend std::ostream& operator<<(std::ostream& os, const LinkedList<T>& list);
-
+    //Sobrecarga do operador de desigualdade.
     bool operator!=(T &b);
-    
+    //Sobrecarga do operador de igualdade.
     bool operator==(T &b);
-
+    //Sobrecarda do operador de atribuição de valor.
     void operator=(T &b);
 };
 
@@ -259,7 +256,12 @@ void printAux(Node<T> *curr){
     }
 }
 
-// Adiciona todos os elementos da lista recebida à lista atual
+/**
+ * @brief Adiciona todos os elementos de outra lista à lista atual.
+ *
+ * @tparam T Tipo dos elementos da lista.
+ * @param otherList A lista da qual os elementos serão adicionados.
+ */
 template <typename T>
 void LinkedList<T>::addList(LinkedList<T>& otherList) {
     Node<T>* curr = otherList.head;
@@ -270,7 +272,12 @@ void LinkedList<T>::addList(LinkedList<T>& otherList) {
     }
 }
 
-// Remove os elementos da lista recebida da lista atual
+/**
+ * @brief Remove os elementos da lista recebida da lista atual.
+ *
+ * @tparam T Tipo dos elementos da lista.
+ * @param otherList A lista que será removida.
+ */
 template <typename T>
 void LinkedList<T>::removeList(LinkedList<T>& otherList) {
     Node<T>* curr = otherList.head;
@@ -281,7 +288,12 @@ void LinkedList<T>::removeList(LinkedList<T>& otherList) {
     }
 }
 
-// Construtor cópia que retorna uma cópia da lista recebida como parâmetro
+/**
+ * @brief Construtor de cópia que retorna uma cópia da lista recebida como parâmetro.
+ *
+ * @tparam T Tipo dos elementos da lista.
+ * @param otherList A lista que será copiada.
+ */
 template <typename T>
 LinkedList<T>::LinkedList(const LinkedList<T>& otherList) {
     head = nullptr;
@@ -295,7 +307,13 @@ LinkedList<T>::LinkedList(const LinkedList<T>& otherList) {
     }
 }
 
-// Sobrecarga do operador "+" para a concatenação de duas listas
+/**
+ * @brief Sobrecarga do operador "+" para a concatenação de duas listas.
+ *
+ * @tparam T Tipo dos elementos da lista.
+ * @param otherList A lista que será concatenada com a lista atual.
+ * @return A lista resultante da concatenação.
+ */
 template <typename T>
 LinkedList<T> LinkedList<T>::operator+(LinkedList<T>& otherList) {
     LinkedList<T> result(*this);
@@ -309,6 +327,14 @@ LinkedList<T> LinkedList<T>::operator+(LinkedList<T>& otherList) {
     return result;
 }
 
+/**
+ * @brief Sobrecarga do operador ">>" para inserir um valor na lista.
+ *
+ * @tparam T Tipo do valor armazenado na lista.
+ * @param is O fluxo de entrada.
+ * @param list A lista encadeada.
+ * @return O fluxo de entrada.
+ */
 template <typename T>
 std::istream& operator>>(std::istream& is, LinkedList<T>& list) {
     T value;
@@ -318,8 +344,8 @@ std::istream& operator>>(std::istream& is, LinkedList<T>& list) {
 }
 
 /**
- * @brief Sobrecarga do operador de inserção "<<" para a classe LinkedList.
- * 
+ * @brief Sobrecarga do operador "<<" para exibir os elementos da lista.
+ *
  * @tparam T Tipo do valor armazenado na lista.
  * @param os O fluxo de saída.
  * @param list A lista encadeada.
@@ -337,6 +363,13 @@ std::ostream& operator<<(std::ostream& os, const LinkedList<T>& list) {
     return os;
 }
 
+/**
+ * @brief Sobrecarga do operador "-" para remover os elementos de outra lista da lista atual.
+ *
+ * @tparam T Tipo dos elementos da lista.
+ * @param otherList A lista que será removida.
+ * @return A lista resultante da remoção.
+ */
 template <typename T>
 LinkedList<T> LinkedList<T>::operator-(LinkedList<T>& otherList){
     LinkedList<T> result(*this);

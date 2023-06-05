@@ -6,12 +6,74 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <fstream>
 #include "Node.hpp"
 #include "LinkedList.hpp"
 #include "Song.hpp"
 #include "Playlist.hpp"
 #include "menu.hpp"
 
+
+/**
+ * @brief Analisa uma linha de um arquivo de texto e cria um objeto Playlist.
+ *
+ * Esta função recebe uma linha de um arquivo de texto que representa uma
+ * playlist com músicas e a analisa para criar um objeto Playlist. A linha
+ * deve ter o seguinte formato:
+ *    NomePlaylist;TituloMusica1:AutorMusica1,TituloMusica2:AutorMusica2,...
+ *
+ * @param line A linha do arquivo de texto que representa a playlist.
+ * @param songs Uma referência para a LinkedList de músicas do sistema.
+ *
+ * @return O objeto Playlist analisado.
+ */
+Playlist parsePlaylist(const std::string& line, LinkedList<Song>& songs) {
+    std::stringstream ss(line);
+    std::string playlistName;
+    std::getline(ss, playlistName, ';');
+
+    Playlist playlist(playlistName);
+
+    std::string songInfo;
+    while (std::getline(ss, songInfo, ',')) {
+        std::stringstream songSS(songInfo);
+        std::string songTitle, songAuthor;
+        std::getline(songSS, songTitle, ':');
+        std::getline(songSS, songAuthor);
+
+        Song song(songTitle, songAuthor);
+        songs.add(song);
+
+        playlist.addSong(song);
+    }
+
+    return playlist;
+}
+
+
+/**
+ * @brief Lê as playlists e músicas de um arquivo de texto e adiciona ao sistema.
+ * 
+ * @param songs Lista encadeada (LinkedList) de músicas (Song) do sistema.
+ * @param playlists Lista encadeada (LinkedList) de playlists (Playlist) do sistema.
+ * @param filename Nome do arquivo de texto a ser lido.
+ */
+void readDataFromFile(LinkedList<Song>& songs, LinkedList<Playlist>& playlists, const std::string& filename) {
+    std::ifstream inputFile(filename);
+    if (!inputFile.is_open()) {
+        std::cerr << "Erro ao abrir o arquivo." << std::endl;
+        return;
+    }
+
+    std::string line;
+    while (std::getline(inputFile, line)) {
+        if (!line.empty()) {
+            playlists.add(parsePlaylist(line, songs));
+        }
+    }
+
+    inputFile.close();
+}
 
 /**
  * @brief Setup inicial do programa, que adiciona exemplos de
@@ -35,41 +97,34 @@ void setup(LinkedList<Song> &songs, LinkedList<Playlist> &playlists){
 
     if(choice == 0) return;
 
-    Song mus1("Música 1", "Autor 1");
-    Song mus2("Música 2", "Autor 2");
-    Song mus3("Música 3", "Autor 3");
-    Song mus4("Música 4", "Autor 4");
 
-    Playlist pl1("Playlist 1");
-    Playlist pl2("Playlist 2");
-    Playlist pl3("Playlist 3");
+    std::string filename = "/home/mariemerenc/Downloads/playlist-main/test.txt"; // Nome do arquivo de texto contendo os exemplos
+    readDataFromFile(songs, playlists, filename);
 
-    songs.add(mus1);
-    songs.add(mus2);
-    songs.add(mus3);
-    songs.add(mus4);
-
-    playlists.add(pl1);
-    playlists.add(pl2);
-    playlists.add(pl3);
-
-    auto pl1ptr = playlists.searchValue(pl1);
-    auto pl2ptr = playlists.searchValue(pl2);
-    auto pl3ptr = playlists.searchValue(pl3);
-
-    pl1ptr->addSong(mus1);
-    pl1ptr->addSong(mus2);
-    pl1ptr->addSong(mus3);
-
-    pl2ptr->addSong(mus1);
-    pl2ptr->addSong(mus4);
+    
 
     std::cout << "Setup completo\n";
     std::cout << "Pressione ENTER para continuar.";
     std::cin.get();
 }
 
-int main(){
+/**
+ * @brief Função principal do programa.
+ *
+ * A função `main` é responsável por iniciar a execução do programa.
+ * Nela, são criadas as listas encadeadas para armazenar as playlists
+ * e as músicas. Em seguida, é chamada a função `setup` para adicionar
+ * exemplos de músicas e playlists. Após o setup, é iniciado um loop
+ * que exibe o menu principal e permite a interação com o usuário.
+ * Quando o usuário escolhe sair do programa, as listas são limpas e o
+ * programa é encerrado.
+ *
+ * @param argc O número de argumentos de linha de comando passados para o programa.
+ * @param argv Um array de strings contendo os argumentos de linha de comando.
+ *
+ * @return O valor de saída do programa. Neste caso, sempre será 0.
+ */
+int main(int argc,char *argv[]){
     LinkedList<Playlist> playlists;
     LinkedList<Song> songs;
     

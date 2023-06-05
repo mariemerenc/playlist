@@ -543,6 +543,11 @@ CMakeFiles/program.dir/src/main.cpp.o: ../src/main.cpp \
   /usr/include/c++/11/bits/istream.tcc \
   /usr/include/c++/11/sstream \
   /usr/include/c++/11/bits/sstream.tcc \
+  /usr/include/c++/11/fstream \
+  /usr/include/c++/11/bits/codecvt.h \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
+  /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
+  /usr/include/c++/11/bits/fstream.tcc \
   ../include/Node.hpp \
   ../include/LinkedList.hpp \
   ../include/Song.hpp \
@@ -551,9 +556,7 @@ CMakeFiles/program.dir/src/main.cpp.o: ../src/main.cpp \
   ../include/Playlist.hpp \
   ../include/LinkedList.hpp \
   ../include/menu.hpp \
-  ../include/Playlist.hpp \
-  ../include/otherMethods.hpp \
-  ../include/menu.hpp
+  ../include/Playlist.hpp
 
 CMakeFiles/program.dir/src/menu.cpp.o: ../src/menu.cpp \
   /usr/include/stdc-predef.h \
@@ -742,19 +745,22 @@ CMakeFiles/program.dir/src/menu.cpp.o: ../src/menu.cpp \
   ../include/Playlist.hpp \
   ../include/LinkedList.hpp \
   ../include/menu.hpp \
-  ../include/Playlist.hpp \
-  ../include/otherMethods.hpp \
-  ../include/menu.hpp \
-  ../include/otherMethods.hpp
+  ../include/Playlist.hpp
 
 
 ../include/menu.hpp:
+
+/usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h:
+
+/usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h:
 
 /usr/include/c++/11/sstream:
 
 ../src/main.cpp:
 
 ../src/Song.cpp:
+
+/usr/include/c++/11/bits/fstream.tcc:
 
 ../include/Song.hpp:
 
@@ -968,6 +974,8 @@ CMakeFiles/program.dir/src/menu.cpp.o: ../src/menu.cpp \
 
 /usr/include/c++/11/ext/type_traits.h:
 
+/usr/include/c++/11/bits/codecvt.h:
+
 /usr/include/x86_64-linux-gnu/bits/time64.h:
 
 /usr/include/c++/11/iosfwd:
@@ -1054,8 +1062,6 @@ CMakeFiles/program.dir/src/menu.cpp.o: ../src/menu.cpp \
 
 /usr/include/x86_64-linux-gnu/c++/11/bits/gthr-default.h:
 
-../include/otherMethods.hpp:
-
 /usr/include/c++/11/bits/cpp_type_traits.h:
 
 /usr/include/pthread.h:
@@ -1105,6 +1111,8 @@ CMakeFiles/program.dir/src/menu.cpp.o: ../src/menu.cpp \
 /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/setjmp.h:
+
+/usr/include/c++/11/fstream:
 
 /usr/include/c++/11/bits/cxxabi_forced.h:
 

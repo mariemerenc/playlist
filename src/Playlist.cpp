@@ -113,7 +113,11 @@ std::ostream& operator<<(std::ostream& os, const Playlist& playlist){
     return os;
 }
 
-//Adicione um método capaz de sobrecarregar a função void addSong(Song song); que pertence ao objeto Playlist, tendo agora como parâmetro uma referência à outra Playlist. Ao fim do método, todos os elementos da lista recebida devem ser adicionados no fim da Playlist atual.
+/**
+ * @brief Adiciona todas as músicas de uma playlist à playlist atual.
+ *
+ * @param playlist A playlist da qual as músicas serão adicionadas.
+ */
 void Playlist::addSong(Playlist &playlist){
     Node<Song> *aux = playlist.getSongs().getHead();
     while(aux != nullptr){
@@ -122,7 +126,11 @@ void Playlist::addSong(Playlist &playlist){
     }
 }
 
-//Adicione um método capaz de sobrecarregar a função void void removeSong(Song song); que pertence ao objeto Playlist, tendo agora como parâmetro uma referência à outra Playlist. Ao fim do método, todos os elementos da lista recebida devem ser removidos no fim da Playlist atual.
+/**
+ * @brief Remove todas as músicas de uma playlist da playlist atual.
+ *
+ * @param playlist A playlist da qual as músicas serão removidas.
+ */
 void Playlist::removeSong(Playlist &playlist){
     Node<Song> *aux = playlist.getSongs().getHead();
     while(aux != nullptr){
@@ -131,7 +139,12 @@ void Playlist::removeSong(Playlist &playlist){
     }
 }
 
-//Implemente o operador + na classe Playlist, que une duas Playlists em uma nova Playlist. A nova Playlist deve conter todas as músicas das duas Playlists que estão sendo unidas e não deve conter músicas repetidas.
+/**
+ * @brief Sobrecarga do operador de adição (+) para mesclar duas playlists.
+ *
+ * @param b A playlist que será mesclada com a playlist atual.
+ * @return A nova playlist resultante da mesclagem.
+ */
 Playlist Playlist::operator+(Playlist &b){
     Playlist newPlaylist;
     Node<Song> *aux = this->getSongs().getHead();
@@ -149,7 +162,12 @@ Playlist Playlist::operator+(Playlist &b){
     return newPlaylist;
 }
 
-//Implemente uma versão sobrecarregada do operador + na classe Playlist, que recebe uma música como parâmetro e deve adicioná-la ao final de uma nova playlist, que é retornada como resultado do operador, pois a playlist original não pode ser alterada.
+/**
+ * @brief Sobrecarga do operador de adição (+) para adicionar uma música à playlist.
+ *
+ * @param song A música que será adicionada à playlist.
+ * @return A nova playlist resultante da adição da música.
+ */
 Playlist Playlist::operator+(Song &song){
     Playlist newPlaylist;
     Node<Song> *aux = this->getSongs().getHead();
@@ -161,7 +179,12 @@ Playlist Playlist::operator+(Song &song){
     return newPlaylist;
 }
 
-//Implemente o operador - na classe Playlist, que remove todas as músicas de uma Playlist que estão presentes em outra Playlist. A Playlist original não deve ser alterada.
+/**
+ * @brief Sobrecarga do operador de subtração (-) para obter a diferença entre duas playlists.
+ *
+ * @param b A playlist que será subtraída da playlist atual.
+ * @return A nova playlist resultante da diferença.
+ */
 Playlist Playlist::operator-(Playlist &b){
     Playlist newPlaylist;
     Node<Song> *aux = this->getSongs().getHead();
@@ -174,8 +197,12 @@ Playlist Playlist::operator-(Playlist &b){
     return newPlaylist;
 }
 
-//Implemente uma versão sobrecarregada do operador - na classe Playlist, que recebe uma música como parâmetro e deve removê-la de uma nova playlist, que é retornada como resultado do operador, pois a playlist original não pode ser alterada.
-
+/**
+ * @brief Sobrecarga do operador de subtração (-) para remover uma música da playlist.
+ *
+ * @param song A música que será removida da playlist.
+ * @return A nova playlist resultante da remoção da música.
+ */
 Playlist Playlist::operator-(Song &song){
     Playlist newPlaylist;
     Node<Song> *aux = this->getSongs().getHead();
@@ -188,7 +215,11 @@ Playlist Playlist::operator-(Song &song){
     return newPlaylist;
 }
 
-//Implemente o operador >> na classe Playlist, que reomve a última música da playlist atual e preenche na Música recebida como argumento. Caso não existam músicas na playlist, nullptr deve ser preenchido no parâmetro.
+/**
+ * @brief Sobrecarga do operador de inserção (>>) para retirar a última música da playlist.
+ *
+ * @param song A música que receberá a última música retirada da playlist.
+ */
 void Playlist::operator>>(Song &song){
     Node<Song> *aux = this->getSongs().getHead();
     
@@ -199,17 +230,22 @@ void Playlist::operator>>(Song &song){
         this->removeSong(song);
 }
 
-//Implemente o operador << na classe Playlist, que adiciona a Música recebida como argumento no final da playlist atual. Caso nullptr seja recebido, nada deve ser feito.
+/**
+ * @brief Sobrecarga do operador de extração (<<) para adicionar uma música à playlist.
+ *
+ * @param song A música que será adicionada à playlist.
+ */
 void Playlist::operator<<(Song &song){
     if(song.operator==(song)){
         this->addSong(song);
     }
 }
 
-//Implemente o construtor cópia da classe Playlist, que recebe uma Playlist como argumento e deve copiar todos os elementos da Playlist recebida para a Playlist atual.
-
-
-//Implemente um construtor cópia de Playlist adequado para receber uma Playlist como argumento e deve copiar todos os elementos da Playlist recebida para a Playlist atual.
+/**
+ * @brief Construtor de cópia para criar uma nova playlist com base em outra playlist existente.
+ *
+ * @param playlist O ponteiro para a playlist que será copiada.
+ */
 Playlist::Playlist(Playlist *playlist){
     this->name = playlist->getName();
     Node<Song> *aux = playlist->getSongs().getHead();
